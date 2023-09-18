@@ -1,5 +1,6 @@
 import random
 import copy
+import hashlib
 
 class Block:
     def __init__(self, data, previous_hash=0):
@@ -9,7 +10,7 @@ class Block:
         self.compute_hash()
 
     def compute_hash(self):
-        self.hash = hash(self.data)
+        self.hash = hashlib.sha256(self.data.encode()).hexdigest()
         
 
 class Blockchain: 
@@ -65,7 +66,7 @@ class Network:
                 print("Adding block....Validation Failed!")
                 return False
             
-        print("Adding block....Validation Passed!")
+        print("\nAdding block....Validation Passed!")
         return True
     
     def propagate_valid_block(self, new_block):
@@ -91,7 +92,7 @@ def main():
         if new_block_data == "q":
             run = False
             break
-        new_block_prev_hash = int(input("Enter previous hash of new block: "))
+        new_block_prev_hash = input("Enter previous hash of new block: ")
         print(("------------------------------------------"))
         #new_block = block_chain.create_block(new_block_data)
         new_block = Block(new_block_data, new_block_prev_hash)
