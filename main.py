@@ -67,6 +67,10 @@ class Network:
             
         print("Adding block....Validation Passed!")
         return True
+    
+    def propagate_valid_block(self, new_block):
+        for computer in self.computers:
+            computer.ledger.chain.append(new_block)
 
     
 
@@ -83,20 +87,21 @@ def main():
 
     run = True
     while run:
-        #block_chain.create_block("hello")
-        #block_chain.create_block("bye")
-        #block_chain.create_block("hey")
         new_block_data = input("Enter data of new block: ")
         if new_block_data == "q":
             run = False
+            break
         new_block_prev_hash = int(input("Enter previous hash of new block: "))
         print(("------------------------------------------"))
         #new_block = block_chain.create_block(new_block_data)
         new_block = Block(new_block_data, new_block_prev_hash)
         if network.braodcast_block_validation(new_block) == True:
             block_chain.chain.append(new_block)
+            network.propagate_valid_block(new_block)
         block_chain.show_chain()
-
+        
+        # Confirm changes to ledger is migrated throughout all nodes in network
+        # network.computers[0].ledger.show_chain()
     
 
 main()
