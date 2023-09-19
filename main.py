@@ -47,7 +47,7 @@ class Computer:
         print("Computer: " + str(self.primary_key) + "| Ledger: " + str(self.ledger.name))
 
     def validate_block(self, new_block):
-        if new_block.previous_hash == self.ledger.chain[-1].hash == False:
+        if new_block.previous_hash != self.ledger.chain[-1].hash:
             return False
         return True
         
@@ -63,7 +63,7 @@ class Network:
     def braodcast_block_validation(self, block):
         for computer in self.computers:
             if computer.validate_block(block) == False:
-                print("Adding block....Validation Failed!")
+                print("\nAdding block....Validation Failed!")
                 return False
             
         print("\nAdding block....Validation Passed!")
