@@ -2,7 +2,7 @@
 # Functions:
 
 ## DEMO:
-<video src="Screen%20Recording%202023-09-18%20at%209.28.23%20PM.mp4" controls title="Title"></video>
+<video src="demo.mp4" controls title="Title"></video>
 
 ## CLASS: Block
 - this represents a individual block in the chain
